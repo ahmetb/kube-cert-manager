@@ -15,6 +15,17 @@ spec:
       containers:
         - name: kube-cert-manager
           image: palmstonegames/kube-cert-manager:0.5.0
+          env:
+          - name: CLOUDFLARE_EMAIL
+            valueFrom:
+              secretKeyRef:
+                name: cloudflare
+                key: email
+          - name: CLOUDFLARE_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: cloudflare
+                key: api_key
           args:
             - "-data-dir=/var/lib/cert-manager"
             - "-acme-url=https://acme-staging.api.letsencrypt.org/directory"
